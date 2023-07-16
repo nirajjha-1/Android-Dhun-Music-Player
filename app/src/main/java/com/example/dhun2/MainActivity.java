@@ -101,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Display songs
     public void displaySongs() {
-        final ArrayList<File> mySongs = findSong(Environment.getExternalStorageDirectory());
+        final ArrayList<File> mySongs;
+        mySongs = findSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC));
+        mySongs.addAll(findSong(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
         items = new String[mySongs.size()];
 
         if (items != null) {
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             View views = getLayoutInflater().inflate(R.layout.list_item, null);
-            TextView txtSong = findViewById(R.id.txtSong);
+            TextView txtSong = views.findViewById(R.id.txtSong);
             if (txtSong != null) {
                 txtSong.setSelected(true);
                 txtSong.setText(items[i]);
